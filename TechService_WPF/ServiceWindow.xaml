@@ -1,0 +1,155 @@
+﻿<Window x:Class="TechService_WPF.ServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TechService_WPF"
+        mc:Ignorable="d"
+        Title="Окно отдела обслуживания" Height="450" Width="800" Closed="Window_Closed" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="Выйти" FontSize="20" HorizontalAlignment="Right" Padding="20 0 20 0" Name="B_Logout" Click="B_Logout_Click"/>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Редактирование заявок">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Редактирование заявки" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_UpdRequestTab"/>
+                    <Label Grid.Row="0" Grid.Column="2" Content="Заявки" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_RequestsTab"/>
+                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Редактирование исполнителей" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_UpdExecutorsTab"/>
+                    <Label Grid.Row="4" Grid.Column="2" Content="Исполнители" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_ExecutorsTab"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Статус заявки:" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_UpdRequestTabStatus"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Описание проблемы:" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_UpdRequestTabInfoError"/>
+                    <Label Grid.Row="5" Grid.Column="0" Content="Исполнитель:" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="L_UpdExecutorTab"/>
+
+                    <ComboBox Grid.Row="1" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="NameStatusRequest" SelectedValuePath="IdStatusRequest" Name="CB_UpdStatusRequest"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_UpdInfoErrorRequest"/>
+
+                    <ComboBox Grid.Row="5" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="SurnameUser" SelectedValuePath="IdUser" Name="CB_Executor"/>
+
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Обновить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="20 5 20 5" Name="B_UpdRequest" Click="B_UpdRequest_Click"/>
+                    <Button Grid.Row="6" Grid.Column="0" Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="20 5 20 5" Name="B_AddExecutor" Click="B_AddExecutor_Click"/>
+                    <Button Grid.Row="6" Grid.Column="1" Content="Обновить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="20 5 20 5" Name="B_UpdExecutor" Click="B_UpdExecutor_Click"/>
+
+                    <DataGrid Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" CanUserAddRows="False" Name="DG_Requests" AutoGenerateColumns="False" SelectionChanged="DG_Requests_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер заявки" Binding="{Binding NumberRequest}"/>
+                            <DataGridTextColumn Header="Дата добавления" Binding="{Binding DateAddingRequest}"/>
+                            <DataGridTextColumn Header="Дата завершения работы" Binding="{Binding DateClosingRequest}"/>
+                            <DataGridTextColumn Header="Код оборудования" Binding="{Binding IdEquipment}"/>
+                            <DataGridTextColumn Header="Код типа неисправности" Binding="{Binding IdTypeErrorSupply}"/>
+                            <DataGridTextColumn Header="Описание проблемы" Binding="{Binding InfoAboutProblemRequest}"/>
+                            <DataGridTextColumn Header="Код клиента" Binding="{Binding IdClient}"/>
+                            <DataGridTextColumn Header="Код статуса" Binding="{Binding IdStatusRequest}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DataGrid Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" CanUserAddRows="False" Name="DG_Executors" AutoGenerateColumns="False" SelectionChanged="DG_Executors_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Код пользователя" Binding="{Binding IdUser}"/>
+                            <DataGridTextColumn Header="Код заявки" Binding="{Binding IdRequest}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Добавление заявки">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Добавление заявки" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Name="L_AddRequestTab"/>
+                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Добавление клиента" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Name="L_AddClientTab"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Номер заявки:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabNumberRequest"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Дата добавления:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabDateAddingRequest"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Оборудование:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabEquipmentRequest"/>
+                    <Label Grid.Row="4" Grid.Column="0" Content="Тип неисправности:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabTypeErrorRequest"/>
+                    <Label Grid.Row="5" Grid.Column="0" Content="Описание проблемы:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabInfoErrorRequest"/>
+                    <Label Grid.Row="6" Grid.Column="0" Content="Клиент:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabClientRequest"/>
+                    <Label Grid.Row="7" Grid.Column="0" Content="Статус заявки:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddRequestTabStatusRequest"/>
+
+                    <Label Grid.Row="1" Grid.Column="2" Content="Фамилия клиента:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddСlientTabSurnameClient"/>
+                    <Label Grid.Row="2" Grid.Column="2" Content="Имя клиента:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddСlientTabNameClient"/>
+                    <Label Grid.Row="3" Grid.Column="2" Content="Отчество клиента:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddСlientTabPatronymicClient"/>
+                    <Label Grid.Row="4" Grid.Column="2" Content="Номер телефона клиента:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Name="L_AddСlientTabPhoneNumberClient"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_NumberRequest"/>
+                    <DatePicker Grid.Row="2" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="DP_DateAddingRequest"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="NameEquipment" SelectedValuePath="IdEquipment"  Name="CB_EquipmentRequest"/>
+                    <ComboBox Grid.Row="4" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="NameTypeErrorSupply" SelectedValuePath="IdTypeErrorSupply" Name="CB_TypeErrorRequest"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_InfoErrorRequest"/>
+                    <ComboBox Grid.Row="6" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="SurnameClient" SelectedValuePath="IdClient" Name="CB_ClientRequest"/>
+                    <ComboBox Grid.Row="7" Grid.Column="1" BorderBrush="Black" FontSize="14" Height="30" DisplayMemberPath="NameStatusRequest" SelectedValuePath="IdStatusRequest" Name="CB_StatusRequest"/>
+                    
+                    <TextBox Grid.Row="1" Grid.Column="3" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_SurnameClient"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_NameClient"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" BorderBrush="Black" FontSize="14" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_PatronymicClient"/>
+                    <TextBox Grid.Row="4" Grid.Column="3" BorderBrush="Black" FontSize="14" Height="30" MaxLength="16" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Name="TB_PhoneNumberClient"/>
+
+                    <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Добавить заявку" FontSize="14" Padding="20 5 20 5" Name="B_AddRequest" Click="B_AddRequest_Click"/>
+                    <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Добавить клиента" FontSize="14" Padding="20 5 20 5" Name="B_AddClient" Click="B_AddClient_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Статистика">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="24" Content="Статистика отдела обслуживания" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="L_StatsTab"/>
+                    <Label Grid.Row="1" Grid.Column="0" FontSize="20" Content="Количество выполненных работ:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="L_StatsTabCountEndWorks"/>
+                    <Label Grid.Row="2" Grid.Column="0" FontSize="20" Content="Среднее время выполнения заявок:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="L_StatsTabAvgTimeExecuteRequests"/>
+                    <Label Grid.Row="3" Grid.Column="0" FontSize="20" Content="Статистика по типам неисправностей:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="L_StatsTabStatsAboutErrors"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Name="TB_CountEndedWorks"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Name="TB_AvgTimeExecuteRequests"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" FontSize="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Name="TB_StatErrors"/>
+
+                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Обновить данные" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20 10 20 10" Name="B_UpdateData" Click="B_UpdateData_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
